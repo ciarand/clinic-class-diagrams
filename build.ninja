@@ -3,4 +3,15 @@ asciidoctor_flags = -r asciidoctor-diagram -T templates
 rule asciidoctor
     command = bundle exec asciidoctor $asciidoctor_flags -o $out $in
 
+rule plantuml
+    command = plantuml $in
+
 build presentation.html: asciidoctor presentation.adoc
+
+build overall.png: plantuml
+build data.png: plantuml
+build external.png: plantuml
+build queries.png: plantuml
+build role.png: plantuml
+build services.png: plantuml
+build stores.png: plantuml

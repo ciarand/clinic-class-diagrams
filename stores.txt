@@ -1,5 +1,7 @@
 @startuml
 
+!include macros.txt
+
 package Stores {
     class AppointmentStore <<SINGLETON>> {
         .. Functions ..

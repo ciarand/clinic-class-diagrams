@@ -1,7 +1,6 @@
 = Clinic class diagrams
 :backend: deckjs
 :deckjs_theme: swiss
-:imagesdir: diagram
 :source-highlighter: pygments
 :data-uri:
 :navigation:
@@ -9,6 +8,10 @@
 == Overall diagram
 
 image::final-overall.png[]
+
+== Sequence diagram
+
+image::SequenceDiagram.png[]
 
 == External package
 
@@ -33,7 +36,6 @@ image::infrastructure.png[]
 == Data package
 
 image::data.png[]
-
 
 == Queries package
 

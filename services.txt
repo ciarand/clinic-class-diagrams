@@ -1,6 +1,6 @@
 @startuml
 
-!define SINGLETON (S,#FF7700)
+!include macros.txt
 
 package Services {
     class Scheduler <<SINGLETON>> {

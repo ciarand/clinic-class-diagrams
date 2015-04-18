@@ -1,0 +1,5 @@
+@startuml
+
+!define SINGLETON (S,#FF7700)
+
+@enduml
