@@ -1,0 +1,20 @@
+@startuml
+
+!define SINGLETON (S,#FF7700)
+
+package Services {
+    class Scheduler <<SINGLETON>> {
+        +reminders: []Reminder
+        +scheduleReminder(): { Reminder }
+    }
+
+    class Authorizer <<SINGLETON>> {
+        +fetchUserRoleForCredentials(): IRole { Credentials }
+    }
+}
+
+Scheduler "1" *- "1" EmailDriver: has a reference to
+Authorizer "1" *- "1" DatabaseDriver: has a reference to
+Scheduler "1" *- "0..*" Reminder: keeps track of
+
+@enduml

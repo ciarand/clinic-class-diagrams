@@ -1,0 +1,38 @@
+@startuml
+
+package Queries {
+    class PatientQueryFactory {
+        .. Methods ..
+        +generateQuery(): PatientQuery
+    }
+
+    class PatientQuery {
+        .. Methods ..
+        whitelistDoctor(): {Doctor}
+        blacklistDoctor(): {Doctor}
+        whitelistAddress(): {Address}
+        blacklistAddress(): {Address}
+        dobBefore(): {DateTime}
+        dobAfter(): {DateTime}
+    }
+    PatientQuery -- PatientQueryFactory
+
+    class AppointmentQueryFactory {
+        .. Methods ..
+        +generateQuery(): AppointmentQuery
+    }
+
+    class AppointmentQuery {
+        .. Methods ..
+        whitelistUser(): {User}
+        blacklistUser(): {User}
+        whitelistDoctor(): {Doctor}
+        blacklistDoctor(): {Doctor}
+        notBefore(): {DateTime}
+        notAfter(): {DateTime}
+    }
+
+    AppointmentQuery -- AppointmentQueryFactory
+}
+
+@enduml

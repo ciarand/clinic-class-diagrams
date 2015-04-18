@@ -1,0 +1,8 @@
+deck.js
+.ninja_log
+.ninja_deps
+.bundle
+vendor
+diagram/*.cache
+diagram/*.png
+diagram/*.svg

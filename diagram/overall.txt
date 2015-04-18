@@ -1,0 +1,32 @@
+@startuml
+left to right direction
+
+title Clinic class diagram
+
+!include infrastructure.txt
+
+!include data.txt
+
+!include services.txt
+
+!include queries.txt
+
+!include stores.txt
+
+!include roles.txt
+
+!include external.txt
+
+' define some dependencies
+Services +-- Infrastructure: depends on
+Services +-- Data: depends on
+
+Stores +-- Infrastructure: depends on
+Stores +-- Services: depends on
+Stores +-- Data: depends on
+Stores +-- Queries: depends on
+
+Roles +-- PatientStore
+Roles +-- AppointmentStore
+
+@enduml

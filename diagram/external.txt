@@ -1,0 +1,27 @@
+@startuml
+
+package External {
+    package WebInterface <<Cloud>> {
+        class WebForm {
+        }
+    }
+
+    class Credentials {
+        Username: String
+        Password: String
+    }
+
+    package Application <<Database>> {
+        class WebController {
+            .. Application entry point ..
+            +Authenticate(): IRole { Credentials }
+        }
+    }
+
+    WebForm -- Credentials: Sends over HTTP(s)
+    Credentials -- WebController: Receives over HTTP(s)
+}
+
+
+WebController --+ Authorizer: retrieves an IRole with Services.Authorizer
+@enduml

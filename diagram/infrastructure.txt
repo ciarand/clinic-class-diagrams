@@ -1,0 +1,24 @@
+@startuml
+
+package Infrastructure {
+    class DatabaseDriver {
+        -username: String
+        -password: String
+        -host: String
+        -port: Int
+        -database: String
+        --
+        +executeQuery<Type>(): <Type> {Query<Type>}
+    }
+
+    class EmailDriver {
+        -username: String
+        -password: String
+        -host: String
+        -port: Int
+
+        +sendEmail(): {To: String, From: String, Body: String}
+    }
+}
+
+@enduml

@@ -1,0 +1,76 @@
+@startuml
+
+package Data {
+    ' Domain (data) objects
+    abstract class RegisteredHuman {
+        ID UUID
+        Email: String
+        DOB: DateTime
+        PhoneNumber: String
+        FirstName: String
+        LastName: String
+        HomeAddress: Address
+    }
+
+    class Address {
+        Street
+        ApartmentNumber
+        City
+        State
+        Zip
+        Country
+    }
+
+    RegisteredHuman "1" *-- "0..1" Address: lives at
+
+    Patient --> RegisteredHuman: is a
+    class Patient {
+        ProviderName: String
+        InsuranceProviders: []InsuranceProvider
+        WorkAddress: Address
+    }
+    Patient "1" *-- "0..2" Address: lives and works at
+    Patient "1" *-- "0..*" Doctor: has one or more
+
+    class InsuranceProvider {
+        AccountID: String
+        Name: String
+    }
+
+    Doctor --> RegisteredHuman: is a
+    class Doctor {
+        Biography: String
+        Specialties: []Specialty
+    }
+
+    class Specialty {
+        .. Attributes ..
+        Name: String
+        Description: String
+    }
+
+    Doctor "1" *-- "1..*" Specialty
+
+    class Appointment {
+        -datetime: DateTime
+        -patient: Patient
+        -doctor: Doctor
+
+        .. Getters ..
+        +Doctor(): Doctor
+        +Patient(): Patient
+        +Time(): DateTime
+    }
+
+    class Reminder {
+        appointment: Appointment
+    }
+
+    Patient     "1" *-- "0..*" Appointment: has scheduled
+    Doctor      "1" *-- "0..*" Appointment: is scheduled
+    Appointment "1" *-- "0..*" Reminder: has set
+    Patient     "1" *-- "0..*" Reminder: belongs to
+    Patient     "1" *-- "0..*" InsuranceProvider
+}
+
+@enduml

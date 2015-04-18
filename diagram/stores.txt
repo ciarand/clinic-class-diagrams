@@ -1,0 +1,35 @@
+@startuml
+
+package Stores {
+    class AppointmentStore <<SINGLETON>> {
+        .. Functions ..
+        +createAppointment(): { Appointment }
+        +updateAppointment(): { Appointment }
+        +deleteAppointment(): { Appointment }
+        +fetchAppointmentByID(): Appointment { UUID }
+        +fetchAppointmentsByQuery(): []Appointment { AppointmentQuery }
+    }
+
+    class PatientStore <<SINGLETON>> {
+        +createPatient(): { Patient }
+        +updatePatient(): { Patient }
+        +deletePatient(): { Patient }
+        +fetchPatientByID(): Patient { UUID }
+        +fetchPatientsByQuery(): []Patient { PatientQuery }
+    }
+}
+
+PatientStore     "1" *-- "1" DatabaseDriver: has a reference to
+AppointmentStore "1" *-- "1" DatabaseDriver: has a reference to
+AppointmentStore "1" *-- "1" Scheduler: schedules reminders with
+
+AppointmentQuery -- AppointmentStore
+PatientQuery -- PatientStore
+
+AppointmentStore ..> Appointment: Works with
+PatientStore ..> Patient: Works with
+
+AppointmentQueryFactory ..> AppointmentStore: uses
+PatientQueryFactory ..> PatientStore: uses
+
+@enduml

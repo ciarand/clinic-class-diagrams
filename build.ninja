@@ -1,0 +1,6 @@
+asciidoctor_flags = -r asciidoctor-diagram -T templates
+
+rule asciidoctor
+    command = bundle exec asciidoctor $asciidoctor_flags -o $out $in
+
+build presentation.html: asciidoctor presentation.adoc

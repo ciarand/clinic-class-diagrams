@@ -1,0 +1,83 @@
+@startuml
+
+package Roles {
+    interface IRole {
+        .. Patient methods ..
+        +showAllPatients(): []Patient {}
+        +showPatientByID(): Patient { UUID }
+        +showPatientByQuery(): Patient { Query }
+        +createPatient(): { Patient }
+        +updatePatient(): { Patient }
+
+        .. Appointment methods ..
+        +showAllAppointments(): []Appointment {}
+        +showAppointmentByID(): Appointment { UUID }
+        +showAppointmentByQuery(): Appointment { AppointmentQuery }
+        +createAppointment() { Appointment }
+        +updateAppointment() { Appointment }
+    }
+
+    class GuestRole {
+        .. Prohibited ..
+        ' using {abstract} to indicate prohibited
+        +{abstract} showAllPatients(): []Patient {}
+        +{abstract} showPatientByID(): Patient { UUID }
+        +{abstract} showPatientByQuery(): Patient { Query }
+        +{abstract} createPatient(): { Patient }
+        +{abstract} updatePatient(): { Patient }
+        +{abstract} showAllAppointments(): []Appointment {}
+        +{abstract} showAppointmentByID(): Appointment { UUID }
+        +{abstract} showAppointmentByQuery(): Appointment { AppointmentQuery }
+        +{abstract} createAppointment() { Appointment }
+        +{abstract} updateAppointment() { Appointment }
+    }
+
+    class ReceptionistRole {
+        .. Allowed ..
+        +showAllPatients(): []Patient {}
+        +showPatientByID(): Patient { UUID }
+        +showPatientByQuery(): Patient { Query }
+        +createPatient(): { Patient }
+        +updatePatient(): { Patient }
+        +showAllAppointments(): []Appointment {}
+        +showAppointmentByID(): Appointment { UUID }
+        +showAppointmentByQuery(): Appointment { AppointmentQuery }
+        +createAppointment() { Appointment }
+        +updateAppointment() { Appointment }
+    }
+
+    class DoctorRole {
+        .. Returns filtered results ..
+        +showAllPatients(): []Patient {}
+        +showPatientByID(): Patient { UUID }
+        +showPatientByQuery(): Patient { Query }
+        +showAllAppointments(): []Appointment {}
+        +showAppointmentByID(): Appointment { UUID }
+        +showAppointmentByQuery(): Appointment { AppointmentQuery }
+    }
+
+    class PatientRole {
+        .. Returns filtered results ..
+        +updatePatient(): { Patient }
+        +showAllAppointments(): []Appointment {}
+        +showAppointmentByID(): Appointment { UUID }
+        +showAppointmentByQuery(): Appointment { AppointmentQuery }
+        +createAppointment() { Appointment }
+        +updateAppointment() { Appointment }
+    }
+
+    GuestRole <|-- DoctorRole: has more access than
+    GuestRole <|-- PatientRole: has more access than
+    GuestRole <|-- ReceptionistRole: has more access than
+
+    IRole <|.. GuestRole: Implements
+    IRole <|.. DoctorRole: Implements
+    IRole <|.. PatientRole: Implements
+    IRole <|.. ReceptionistRole: Implements
+}
+
+IRole -- AppointmentStore: will forward allowed calls to
+IRole -- PatientStore: will forward allowed calls to
+Authorizer .. IRole: retrieves
+
+@enduml
